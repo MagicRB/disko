@@ -190,7 +190,10 @@ let
                       "cache=loose"
                     ];
                   };
-                  boot.zfs.devNodes = "/dev/disk/by-uuid"; # needed because /dev/disk/by-id is empty in qemu-vms
+                  # /dev/disk-by-id is empty in QEMU VMs, /dev/disk/by-uuid only shows one entry
+                  # per ZFS pool as members use the pool's GUID, /dev/disk/by-partuuid only shows
+                  # partitions so LVM backed members are missed. /dev is the only thing that catches all.
+                  boot.zfs.devNodes = "/dev";
 
                   # Silence mdadm warning about missing MAILADDR or PROGRAM
                   boot.swraid.mdadmConf = "PROGRAM ${pkgs.coreutils}/bin/true";
