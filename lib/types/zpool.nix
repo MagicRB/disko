@@ -276,7 +276,7 @@ in
           formatOutput = type: mode: members: ''
             entries+=("${type} ${mode}=${
               lib.concatMapStringsSep " " (
-                d: if lib.strings.hasPrefix "/" d then d else "/dev/disk/by-partlabel/disk-${d}-zfs"
+                d: if lib.strings.hasPrefix "/" d then d else "/dev/mapper/${d}"
               ) members
             }")
           '';
